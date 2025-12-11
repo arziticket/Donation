@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,7 +25,14 @@
         }
 
             .acc-btn:hover {
-                background: #f1f1f1;
+                background: #368915;
+                color: #fff;
+            }
+
+            .acc-btn.active-acc {
+                background: #368915 !important;
+                color: #fff !important;
+                border-color: #368915 !important;
             }
 
         .voice-btn.recording {
@@ -41,6 +48,15 @@
             color: #6c757d;
         }
     </style>
+    <style>
+        .essential-box {
+            background: #fff4f4;
+            border: 2px solid #dc3545;
+            padding: 16px;
+            border-radius: 12px;
+        }
+    </style>
+
 </head>
 <body>
     <div class="container">
@@ -51,29 +67,61 @@
             <div class="card-body">
                 <form id="donationForm" autocomplete="off">
                     <div class="row g-2">
-                         <div class="col-md-4">
-                            <label class="form-label">Amount (INR)</label>
-                            <input type="number" id="amount" class="form-control" placeholder="Amount">
-                        </div>
+                        <!--<div class="col-md-4">
+        <label class="form-label">Amount (INR)</label>
+        <input type="number" id="amount" class="form-control" placeholder="Amount">
+    </div>
 
-                        <div class="col-md-4">
-                            <label class="form-label">Donor Name</label>
-                            <input list="donorSuggestions" id="donorName" class="form-control" placeholder="Full name">
-                            <datalist id="donorSuggestions"></datalist>
-                        </div>
+    <div class="col-md-4">
+        <label class="form-label">Donor Name</label>
+        <input list="donorSuggestions" id="donorName" class="form-control" placeholder="Full name">
+        <datalist id="donorSuggestions"></datalist>
+    </div>
 
+    <div class="col-md-4">
+        <label class="form-label">Account</label>
+        <input id="account" class="form-control" placeholder="Sadka / Lillah / Zakat / Fitra / Fidya">
+        <div class="mt-2">
+            <button type="button" class="acc-btn btn-sm" data-val="Sadka">Sadka</button>
+            <button type="button" class="acc-btn btn-sm" data-val="Lillah">Lillah</button>
+            <button type="button" class="acc-btn btn-sm" data-val="Zakat">Zakat</button>
+            <button type="button" class="acc-btn btn-sm" data-val="Fitra">Fitra</button>
+            <button type="button" class="acc-btn btn-sm" data-val="Fidya">Fidya</button>
+        </div>
+    </div>-->
+                        <!-- ESSENTIAL DETAILS BOX -->
+                        <div class="p-3 border border-primary rounded-3 mb-3 bg-light essential-box">
+                            <h6 class="text-primary fw-bold mb-3"> Essential Donation Details</h6>
 
-                        <div class="col-md-4">
-                            <label class="form-label">Account</label>
-                            <input id="account" class="form-control" placeholder="Sadka / Lillah / Zakat / Fitra / Fidya">
-                            <div class="mt-2">
-                                <button type="button" class="acc-btn btn-sm" data-val="Sadka">Sadka</button>
-                                <button type="button" class="acc-btn btn-sm" data-val="Lillah">Lillah</button>
-                                <button type="button" class="acc-btn btn-sm" data-val="Zakat">Zakat</button>
-                                <button type="button" class="acc-btn btn-sm" data-val="Fitra">Fitra</button>
-                                <button type="button" class="acc-btn btn-sm" data-val="Fidya">Fidya</button>
+                            <div class="row g-2">
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Amount (INR)</label>
+                                    <input type="number" id="amount" class="form-control" placeholder="Amount">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Donor Name</label>
+                                    <input list="donorSuggestions" id="donorName" class="form-control" placeholder="Full name">
+                                    <datalist id="donorSuggestions"></datalist>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label  id="lbl-account" class="form-label">Account</label>
+                                    <input id="account" class="form-control" style="display:none" placeholder="Sadka / Lillah / Zakat / Fitra / Fidya">
+                                    <div>
+                                        <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Sadka">Sadka</button>
+                                        <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Lillah">Lillah</button>
+                                        <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Zakat">Zakat</button>
+                                        <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Fitra">Fitra</button>
+                                        <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Fidya">Fidya</button>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
+                        <!-- END ESSENTIAL DETAILS BOX -->
+
                         <div class="col-md-3">
                             <label class="form-label">Serial No</label>
                             <input id="serialNo" class="form-control" readonly>
@@ -90,7 +138,7 @@
                         </div>
 
 
-                       
+
 
                         <div class="col-md-4">
                             <label class="form-label">Area</label>
@@ -454,44 +502,152 @@ function applyReportFilterAndRender(rows){
 $('applyReport').addEventListener('click', async ()=>{ const all = await getAllRecords(); applyReportFilterAndRender(all); });
 $('resetReport').addEventListener('click', async ()=>{ $('reportFrom').value=''; $('reportTo').value=''; $('reportName').value=''; $('reportAccount').value=''; $('reportArea').value=''; const all = await getAllRecords(); applyReportFilterAndRender(all); });
 
-/* Export Excel with single-row bold header */
-function exportRecordsToExcel(rows, filename='donations.xlsx'){
-  if(!rows || !rows.length) return alert('No records to export');
-  const bookNo = rows[0].bookNo || '';
-  const area = rows[0].area || '';
-  const subArea = rows[0].subArea || '';
-  const data = rows.map(r=> ({
-    Serial: r.serial,
-    Date: r.date,
-    Name: r.name,
-    Amount: r.amount,
-    Account: r.account,
-    Area: r.area,
-    SubArea: r.subArea,
-    Contact: r.contact,
-    Notes: r.notes
-  }));
-  // worksheet
-  const ws = XLSX.utils.aoa_to_sheet([]);
-  // header single row bold (we'll add values, styling best-effort)
-  const headerRow = ["Book No", bookNo, "Area", area, "Sub Area", subArea];
-  XLSX.utils.sheet_add_aoa(ws, [headerRow], { origin: "A1" });
-  // add a blank row
-  XLSX.utils.sheet_add_aoa(ws, [[]], { origin: "A2" });
-  // add data starting at A3
-  XLSX.utils.sheet_add_json(ws, data, { origin: "A3", skipHeader: false });
-  // attempt to set bold for header cells (note: some XLSX builds support .s)
-  try{
-    const range = XLSX.utils.decode_range(ws['!ref']);
-    for(let c=0;c<=5;c++){
-      const cell = XLSX.utils.encode_cell({r:0,c});
-      if(ws[cell]) ws[cell].s = { font: { bold: true } };
-    }
-  }catch(e){}
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'Donations');
-  XLSX.writeFile(wb, filename);
-}
+///* Export Excel with single-row bold header */
+//function exportRecordsToExcel(rows, filename='donations.xlsx'){
+//  if(!rows || !rows.length) return alert('No records to export');
+//  const bookNo = rows[0].bookNo || '';
+//  const area = rows[0].area || '';
+//  const subArea = rows[0].subArea || '';
+//  const data = rows.map(r=> ({
+//    Serial: r.serial,
+//    Date: r.date,
+//    Name: r.name,
+//    Amount: r.amount,
+//    Account: r.account,
+//    Area: r.area,
+//    SubArea: r.subArea,
+//    Contact: r.contact,
+//    Notes: r.notes
+//  }));
+//  // worksheet
+//  const ws = XLSX.utils.aoa_to_sheet([]);
+//  // header single row bold (we'll add values, styling best-effort)
+//  const headerRow = ["Book No", bookNo, "Area", area, "Sub Area", subArea];
+//  XLSX.utils.sheet_add_aoa(ws, [headerRow], { origin: "A1" });
+//  // add a blank row
+//  XLSX.utils.sheet_add_aoa(ws, [[]], { origin: "A2" });
+//  // add data starting at A3
+//  XLSX.utils.sheet_add_json(ws, data, { origin: "A3", skipHeader: false });
+//  // attempt to set bold for header cells (note: some XLSX builds support .s)
+//  try{
+//    const range = XLSX.utils.decode_range(ws['!ref']);
+//    for(let c=0;c<=5;c++){
+//      const cell = XLSX.utils.encode_cell({r:0,c});
+//      if(ws[cell]) ws[cell].s = { font: { bold: true } };
+//    }
+//  }catch(e){}
+//  const wb = XLSX.utils.book_new();
+//  XLSX.utils.book_append_sheet(wb, ws, 'Donations');
+//  XLSX.writeFile(wb, filename);
+//        }
+
+        // ======================================================
+        //  EXCEL EXPORT WITH GROUPING: AREA → SUB AREA
+        // ======================================================
+        async function exportRecordsToExcel(rows, filename = "donations_grouped.xlsx") {
+
+            if (!rows || !rows.length) return alert("No records to export");
+
+            // -----------------------------
+            // GROUP BY SUB AREA
+            // -----------------------------
+            const groups = {};
+            rows.forEach(r => {
+                const sub = r.subArea || "Unknown Sub Area";
+                if (!groups[sub]) groups[sub] = [];
+                groups[sub].push(r);
+            });
+
+            // -----------------------------
+            // PREPARE SHEET (AOA)
+            // -----------------------------
+            const sheet = [];
+
+            // ======== TOP AREA HEADER ==========
+            const areaName = rows[0].area || "Area";
+            sheet.push([`${areaName.toUpperCase()} REPORT`]);
+            sheet.push([]);
+
+            // ======== COLUMN HEADERS ===========
+            const HEADERS = ["Amount", "Name", "Account"];
+
+            // ======== LOOP SUB AREAS ===========
+            Object.keys(groups).forEach(sub => {
+
+                // Sub Area Header
+                sheet.push([`SUB AREA: ${sub.toUpperCase()}`]);
+                sheet.push([]);
+
+                // Table Header
+                sheet.push([...HEADERS]);
+
+                // Data rows
+                groups[sub].forEach(r => {
+                    sheet.push([
+                        r.amount || "",
+                        r.name || "",
+                        r.account || ""
+                    ]);
+                });
+
+                // space after each group
+                sheet.push([]);
+            });
+
+            // -----------------------------
+            // CONVERT TO XLSX SHEET
+            // -----------------------------
+            const ws = XLSX.utils.aoa_to_sheet(sheet);
+
+            // -----------------------------
+            // COLUMN WIDTHS (A5 friendly)
+            // -----------------------------
+            ws["!cols"] = [
+                { wch: 10 }, // Amount
+                { wch: 22 }, // Name
+                { wch: 14 }  // Account
+            ];
+
+            // -----------------------------
+            // FORMATTING: Borders & Alignment
+            // -----------------------------
+            const range = XLSX.utils.decode_range(ws['!ref']);
+
+            for (let R = range.s.r; R <= range.e.r; ++R) {
+                for (let C = range.s.c; C <= range.e.c; ++C) {
+
+                    const addr = XLSX.utils.encode_cell({ r: R, c: C });
+                    const cell = ws[addr];
+                    if (!cell) continue;
+
+                    cell.s = cell.s || {};
+
+                    // Alignment
+                    cell.s.alignment = {
+                        vertical: "center",
+                        horizontal: (C === 0) ? "center" : "left",
+                        wrapText: true
+                    };
+
+                    // Borders
+                    cell.s.border = {
+                        top: { style: "thin", color: { rgb: "000000" } },
+                        left: { style: "thin", color: { rgb: "000000" } },
+                        bottom: { style: "thin", color: { rgb: "000000" } },
+                        right: { style: "thin", color: { rgb: "000000" } }
+                    };
+                }
+            }
+
+            // -----------------------------
+            // EXPORT FILE
+            // -----------------------------
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Grouped");
+            XLSX.writeFile(wb, filename);
+        }
+
+
 $('exportExcel').addEventListener('click', async ()=>{ const all = await getAllRecords(); exportRecordsToExcel(all, 'donations_all.xlsx'); });
 $('exportExcelTop').addEventListener('click', async ()=>{ const all = await getAllRecords(); exportRecordsToExcel(all, 'donations_all.xlsx'); });
 $('exportFiltered').addEventListener('click', async ()=>{ const all = await getAllRecords(); const filtered = applyReportFilterAndRender(all); exportRecordsToExcel(filtered, 'donations_filtered.xlsx'); });
@@ -510,7 +666,15 @@ async function updateSuggestions(){
 /* Account buttons */
 document.querySelectorAll('.acc-btn').forEach(btn=> btn.addEventListener('click', e=>{
   const v = e.currentTarget.dataset.val;
-  $('account').value = v;
+    $('account').value = v;    
+    document.getElementById('account').value = v;   
+
+    // Remove active class from all buttons
+    document.querySelectorAll('.acc-btn')
+        .forEach(b => b.classList.remove('active-acc'));
+
+    // Add active class to clicked button
+    e.currentTarget.classList.add('active-acc');
 }));
 
 /* Voice assist (simple) */
@@ -580,4 +744,3 @@ function parseSpokenNumber(text){
     </script>
 </body>
 </html>
-
