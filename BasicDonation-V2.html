@@ -65,812 +65,907 @@
         <h3 class="mb-2">Donation App v2 — Enhanced</h3>
         <p class="small-muted">Account buttons · Area/SubArea · Edit · Smart suggestions · Serial reset on clear</p>
 
-        <div class="card mb-3">
-            <div class="card-body">
-                <form id="donationForm" autocomplete="off">
-                    <div class="row g-2">                       
-                        <!-- ESSENTIAL DETAILS BOX -->
-                        <div class="p-3 border border-primary rounded-3 mb-3 bg-light essential-box">
-                            <h6 class="text-primary fw-bold mb-3"> Essential Donation Details</h6>
-
+        <ul class="nav nav-tabs mb-3" role="tablist">
+            <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-entry" type="button">
+                    📝 Entry
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-view" type="button">
+                    📋 View
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-filter" type="button">
+                    📊 Filter
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="tab-entry">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <form id="donationForm" autocomplete="off">
                             <div class="row g-2">
+                                <!-- ESSENTIAL DETAILS BOX -->
+                                <div class="p-3 border border-primary rounded-3 mb-3 bg-light essential-box">
+                                    <h6 class="text-primary fw-bold mb-3"> Essential Donation Details</h6>
 
-                                <div class="col-md-2">
-                                    <label class="form-label">Amount</label>
-                                    <input type="number" id="amount" class="form-control" placeholder="Amount">
-                                </div>
+                                    <div class="row g-2">
 
-                                <div class="col-md-2">
-                                    <label class="form-label">Donor Name</label>
-                                    <input list="donorSuggestions" id="donorName" class="form-control" placeholder="Full name">
-                                    <datalist id="donorSuggestions"></datalist>
-                                </div>
+                                        <div class="col-md-2">
+                                            <label class="form-label">Amount</label>
+                                            <input type="number" id="amount" class="form-control" placeholder="Amount">
+                                        </div>
 
-                                <div class="col-md-4">
-                                    <label id="lbl-account" class="form-label">Account</label>
-                                    <input id="account" disabled="disabled" class="form-control  w-100 mb-2" placeholder="Sadka / Lillah / Zakat / Fitra / Fidya">
-                                    <div d-flex flex-wrap gap-1>
+                                        <div class="col-md-2">
+                                            <label class="form-label">Donor Name</label>
+                                            <input list="donorSuggestions" id="donorName" class="form-control" placeholder="Full name">
+                                            <datalist id="donorSuggestions"></datalist>
+                                        </div>
 
-                                        <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Sa">Sadka</button>
-                                        <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Li">Lillah</button>
-                                        <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Za">Zakat</button>
-                                        <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Fi">Fitra</button>
-                                        <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Fid">Fidya</button>
+                                        <div class="col-md-4">
+                                            <label id="lbl-account" class="form-label">Account</label>
+                                            <input id="account" disabled="disabled" class="form-control  w-100 mb-2" placeholder="Sadka / Lillah / Zakat / Fitra / Fidya">
+                                            <div d-flex flex-wrap gap-1>
+
+                                                <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Sa">Sadka</button>
+                                                <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Li">Lillah</button>
+                                                <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Za">Zakat</button>
+                                                <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Fi">Fitra</button>
+                                                <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Fid">Fidya</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="form-label">Area</label>
+                                            <input list="areaSuggestions" id="area" class="form-control" placeholder="Area / City">
+                                            <datalist id="areaSuggestions"></datalist>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <label class="form-label">Sub Area</label>
+                                            <input list="subAreaSuggestions" id="subArea" class="form-control" placeholder="Sub Area / Colony">
+                                            <datalist id="subAreaSuggestions"></datalist>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
-                                    <label class="form-label">Area</label>
-                                    <input list="areaSuggestions" id="area" class="form-control" placeholder="Area / City">
-                                    <datalist id="areaSuggestions"></datalist>
+                                <!-- END ESSENTIAL DETAILS BOX -->
+
+                                <div class="col-md-3">
+                                    <label class="form-label">Serial No</label>
+                                    <input id="serialNo" class="form-control" readonly>
                                 </div>
 
-                                <div class="col-md-2">
-                                    <label class="form-label">Sub Area</label>
-                                    <input list="subAreaSuggestions" id="subArea" class="form-control" placeholder="Sub Area / Colony">
-                                    <datalist id="subAreaSuggestions"></datalist>
+                                <div class="col-md-3">
+                                    <label class="form-label">Date</label>
+                                    <input type="date" id="donationDate" class="form-control">
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label">Phone / Contact</label>
+                                    <input id="contact" class="form-control" placeholder="Phone or email">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Notes</label>
+                                    <input id="notes" class="form-control" placeholder="Optional notes">
+                                </div>
+
+                            </div>
+
+                            <div class="d-flex gap-2 mt-3">
+                                <button type="button" id="saveBtn" class="btn btn-primary">Save</button>
+                                <button type="button" id="clearBtn" class="btn btn-outline-secondary">Clear</button>
+                                <button type="button" id="cancelEditBtn" class="btn btn-warning" style="display:none">Cancel Edit</button>
+
+                                <div class="ms-auto d-flex gap-2">
+                                    <button type="button" id="voiceBtn" class="btn btn-success voice-btn">🎤 Voice Fill</button>
+                                    <button type="button" id="exportExcelTop" class="btn btn-outline-primary">Export → Excel</button>
                                 </div>
                             </div>
-                        </div>
-                        <!-- END ESSENTIAL DETAILS BOX -->
-
-                        <div class="col-md-3">
-                            <label class="form-label">Serial No</label>
-                            <input id="serialNo" class="form-control" readonly>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label class="form-label">Date</label>
-                            <input type="date" id="donationDate" class="form-control">
-                        </div>
-
-                        <div class="col-md-3">
-                            <label class="form-label">Phone / Contact</label>
-                            <input id="contact" class="form-control" placeholder="Phone or email">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Notes</label>
-                            <input id="notes" class="form-control" placeholder="Optional notes">
-                        </div>
-
+                        </form>
                     </div>
+                </div>
 
-                    <div class="d-flex gap-2 mt-3">
-                        <button type="button" id="saveBtn" class="btn btn-primary">Save</button>
-                        <button type="button" id="clearBtn" class="btn btn-outline-secondary">Clear</button>
-                        <button type="button" id="cancelEditBtn" class="btn btn-warning" style="display:none">Cancel Edit</button>
-
-                        <div class="ms-auto d-flex gap-2">
-                            <button type="button" id="voiceBtn" class="btn btn-success voice-btn">🎤 Voice Fill</button>
-                            <button type="button" id="exportExcelTop" class="btn btn-outline-primary">Export → Excel</button>
-                        </div>
-                    </div>
-                </form>
             </div>
-        </div>
+            <div class="tab-pane fade" id="tab-view">
 
-        <div class="row">
-            <div class="col-lg-7">
                 <div class="card mb-3">
                     <div class="card-header">Saved Records</div>
+
                     <div class="card-body p-0">
                         <div class="table-responsive" style="max-height:420px; overflow:auto;">
                             <table class="table table-sm table-hover mb-0" id="recordsTable">
                                 <thead class="table-light sticky-top">
-                                    <tr><th style="width:60px">#</th><th>Name</th><th style="width:100px">Amount</th><th>Account</th><th>Area</th><th>Sub Area</th><th style="width:120px">Date</th><th style="width:140px">Actions</th></tr>
+                                    <tr>
+                                        <th style="width:60px">#</th>
+                                        <th>Name</th>
+                                        <th style="width:100px">Amount</th>
+                                        <th>Account</th>
+                                        <th>Area</th>
+                                        <th>Sub Area</th>
+                                        <th style="width:120px">Date</th>
+                                        <th style="width:140px">Actions</th>
+                                    </tr>
                                 </thead>
                                 <tbody></tbody>
                             </table>
                         </div>
 
                         <div class="p-2 border-top d-flex gap-2">
-                            <button id="exportExcel" class="btn btn-outline-primary btn-sm">Export All → Excel</button>
-                            <button id="deleteAll" class="btn btn-danger btn-sm">Delete All (Reset Serial)</button>
-                            <div class="ms-auto small-muted align-self-center">Records stored in browser (IndexedDB)</div>
+                            <button id="exportExcel" class="btn btn-outline-primary btn-sm">
+                                Export All → Excel
+                            </button>
+                            <button id="deleteAll" class="btn btn-danger btn-sm">
+                                Delete All (Reset Serial)
+                            </button>
+                            <div class="ms-auto small-muted align-self-center">
+                                Records stored in browser (IndexedDB)
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
 
-            <div class="col-lg-5">
+            <div class="tab-pane fade" id="tab-filter">
+
                 <div class="card mb-3">
                     <div class="card-header">Reports / Filters</div>
+
                     <div class="card-body">
                         <div class="row g-2">
-                            <div class="col-6"><label>From</label><input type="date" id="reportFrom" class="form-control"></div>
-                            <div class="col-6"><label>To</label><input type="date" id="reportTo" class="form-control"></div>
-                            <div class="col-12"><label>Donor Name</label><input id="reportName" class="form-control" placeholder="contains"></div>
-                            <div class="col-12"><label>Account</label><select id="reportAccount" class="form-control"><option value="">All</option><option>Sadka</option><option>Lillah</option><option>Zakat</option><option>Fitra</option><option>Fidya</option></select></div>
-                            <div class="col-12"><label>Area</label><input id="reportArea" class="form-control" placeholder="contains"></div>
-                            <div class="col-12 d-flex gap-2 mt-2"><button id="applyReport" class="btn btn-primary">Apply</button><button id="resetReport" class="btn btn-outline-secondary">Reset</button><button id="exportFiltered" class="btn btn-outline-success ms-auto">Export Filtered → Excel</button></div>
+
+                            <div class="col-6">
+                                <label>From</label>
+                                <input type="date" id="reportFrom" class="form-control">
+                            </div>
+
+                            <div class="col-6">
+                                <label>To</label>
+                                <input type="date" id="reportTo" class="form-control">
+                            </div>
+
+                            <div class="col-12">
+                                <label>Donor Name</label>
+                                <input id="reportName" class="form-control" placeholder="contains">
+                            </div>
+
+                            <div class="col-12">
+                                <label>Account</label>
+                                <select id="reportAccount" class="form-control">
+                                    <option value="">All</option>
+                                    <option>Sadka</option>
+                                    <option>Lillah</option>
+                                    <option>Zakat</option>
+                                    <option>Fitra</option>
+                                    <option>Fidya</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12">
+                                <label>Area</label>
+                                <input id="reportArea" class="form-control" placeholder="contains">
+                            </div>
+
+                            <div class="col-12 d-flex gap-2 mt-2">
+                                <button id="applyReport" class="btn btn-primary">Apply</button>
+                                <button id="resetReport" class="btn btn-outline-secondary">Reset</button>
+                                <button id="exportFiltered" class="btn btn-outline-success ms-auto">
+                                    Export Filtered → Excel
+                                </button>
+                            </div>
                         </div>
+
                         <hr>
+
                         <div id="reportSummary" class="small-muted mb-2"></div>
+
                         <div style="max-height:220px; overflow:auto;">
-                            <table class="table table-sm" id="reportTable"><thead class="table-light"><tr><th>#</th><th>Name</th><th>Amount</th><th>Account</th><th>Area</th><th>Date</th></tr></thead><tbody></tbody></table>
+                            <table class="table table-sm" id="reportTable">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Amount</th>
+                                        <th>Account</th>
+                                        <th>Area</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
                         </div>
+
                     </div>
                 </div>
+
             </div>
+
         </div>
 
-        <hr>
-        <p class="small-muted">Tip: Use account buttons for zero-typing. Edit a row to update. When you delete ALL records, serial restarts from 1.</p>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
-    <script>
-/* Donation App v2 JS */
-/* IndexedDB stores: donations, meta (serialCounter) */
-const DB_NAME = 'donation-db-v2';
-const STORE = 'donations';
-const META = 'meta';
-const DB_VERSION = 1;
+           
 
-function openDb() {
-  return new Promise((resolve,reject)=>{
-    const req = indexedDB.open(DB_NAME, DB_VERSION);
-    req.onupgradeneeded = e => {
-      const db = e.target.result;
-      if(!db.objectStoreNames.contains(STORE)){
-        const store = db.createObjectStore(STORE, { keyPath: 'id', autoIncrement: true });
-        store.createIndex('date','date',{unique:false});
-        store.createIndex('name','name',{unique:false});
-      }
-      if(!db.objectStoreNames.contains(META)){
-        db.createObjectStore(META, { keyPath: 'key' });
-      }
-    };
-    req.onsuccess = ()=> resolve(req.result);
-    req.onerror = ()=> reject(req.error);
-  });
-}
+            <hr>
+            <p class="small-muted">Tip: Use account buttons for zero-typing. Edit a row to update. When you delete ALL records, serial restarts from 1.</p>
+        </div>
 
-async function getMeta(key){
-  const db = await openDb();
-  if(!db.objectStoreNames.contains(META)) return null;
-  return new Promise((resolve,reject)=>{
-    const tx = db.transaction(META,'readonly');
-    const req = tx.objectStore(META).get(key);
-    req.onsuccess = ()=> resolve(req.result ? req.result.value : null);
-    req.onerror = ()=> resolve(null);
-  });
-}
-async function setMeta(key,value){
-  const db = await openDb();
-  if(!db.objectStoreNames.contains(META)) return;
-  return new Promise((resolve,reject)=>{
-    const tx = db.transaction(META,'readwrite');
-    tx.objectStore(META).put({ key, value });
-    tx.oncomplete = ()=> resolve(true);
-    tx.onerror = ()=> reject(tx.error);
-  });
-}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
-async function addRecord(obj){
-  const db = await openDb();
-  return new Promise((resolve,reject)=>{
-    const tx = db.transaction(STORE,'readwrite');
-    tx.objectStore(STORE).add(obj);
-    tx.oncomplete = ()=> resolve(true);
-    tx.onerror = ()=> reject(tx.error);
-  });
-}
-async function updateRecord(id, obj){
-  const db = await openDb();
-  return new Promise((resolve,reject)=>{
-    const tx = db.transaction(STORE,'readwrite');
-    const store = tx.objectStore(STORE);
-    const getReq = store.get(id);
-    getReq.onsuccess = ()=> {
-      const existing = getReq.result;
-      if(!existing) return reject(new Error('Not found'));
-      const updated = Object.assign({}, existing, obj);
-      store.put(updated);
-    };
-    tx.oncomplete = ()=> resolve(true);
-    tx.onerror = ()=> reject(tx.error);
-  });
-}
-async function getRecord(id){
-  const db = await openDb();
-  return new Promise((resolve,reject)=>{
-    const tx = db.transaction(STORE,'readonly');
-    const req = tx.objectStore(STORE).get(id);
-    req.onsuccess = ()=> resolve(req.result);
-    req.onerror = ()=> reject(req.error);
-  });
-}
-async function getAllRecords(){
-  const db = await openDb();
-  return new Promise((resolve,reject)=>{
-    if(!db.objectStoreNames.contains(STORE)) return resolve([]);
-    const tx = db.transaction(STORE,'readonly');
-    const req = tx.objectStore(STORE).getAll();
-    req.onsuccess = ()=> resolve(req.result || []);
-    req.onerror = ()=> reject(req.error);
-  });
-}
-async function deleteRecord(id){
-  const db = await openDb();
-  return new Promise((resolve,reject)=>{
-    const tx = db.transaction(STORE,'readwrite');
-    tx.objectStore(STORE).delete(id);
-    tx.oncomplete = ()=> resolve(true);
-    tx.onerror = ()=> reject(tx.error);
-  });
-}
-async function clearAll(){
-  const db = await openDb();
-  return new Promise((resolve,reject)=>{
-    const tx = db.transaction(STORE,'readwrite');
-    tx.objectStore(STORE).clear();
-    tx.oncomplete = async ()=> {
-      // reset serial counter
-      await setMeta('serialCounter', 1);
-      resolve(true);
-    };
-    tx.onerror = ()=> reject(tx.error);
-  });
-}
+        <script>
+            /* Donation App v2 JS */
+            /* IndexedDB stores: donations, meta (serialCounter) */
+            const DB_NAME = 'donation-db-v2';
+            const STORE = 'donations';
+            const META = 'meta';
+            const DB_VERSION = 1;
 
-/* UI helpers */
-const $ = id => document.getElementById(id);
-function formatDate(d){ if(!d) return ''; return new Date(d).toISOString().slice(0,10); }
-function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=> ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-
-/* Serial counter logic */
-async function getNextSerial(){
-  let s = await getMeta('serialCounter');
-  if(s === null || s === undefined) s = 1;
-  await setMeta('serialCounter', Number(s) + 1);
-  return Number(s);
-}
-async function peekSerial(){
-  let s = await getMeta('serialCounter');
-  if(s === null || s === undefined) s = 1;
-  $('serialNo').value = String(s);
-}
-
-/* Render table */
-async function refreshTable(){
-  const rows = await getAllRecords();
-  const tbody = document.querySelector('#recordsTable tbody');
-  tbody.innerHTML = '';
-  // show newest first
-  rows.sort((a,b)=> new Date(b.date) - new Date(a.date));
-  rows.forEach(r=>{
-    const tr = document.createElement('tr');
-    tr.innerHTML = `<td>${r.serial||''}</td>
-      <td>${escapeHtml(r.name||'')}</td>
-      <td>${r.amount||''}</td>
-      <td>${escapeHtml(r.account||'')}</td>
-      <td>${escapeHtml(r.area||'')}</td>
-      <td>${escapeHtml(r.subArea||'')}</td>
-      <td>${r.date||''}</td>
-      <td>
-        <button data-id="${r.id}" class="btn btn-sm btn-warning edit">Edit</button>
-        <button data-id="${r.id}" class="btn btn-sm btn-danger del">Delete</button>
-      </td>`;
-    tbody.appendChild(tr);
-  });
-  // attach handlers
-  document.querySelectorAll('.del').forEach(btn=> btn.addEventListener('click', async e=>{
-    const id = Number(e.currentTarget.dataset.id);
-    if(confirm('Delete record #' + id + '?')){
-      await deleteRecord(id);
-      // if no records left, reset serialCounter handled by clearAll only; but check:
-      const all = await getAllRecords();
-      if(all.length === 0) await setMeta('serialCounter',1);
-      await refreshTable(); await refreshReport(); await updateSuggestions();
-    }
-  }));
-  document.querySelectorAll('.edit').forEach(btn=> btn.addEventListener('click', async e=>{
-    const id = Number(e.currentTarget.dataset.id);
-    const rec = await getRecord(id);
-    if(!rec) return alert('Record not found');
-    fillForm(rec);
-    editingId = id;
-    $('cancelEditBtn').style.display = 'inline-block';
-    $('saveBtn').textContent = 'Update';
-  }));
-}
-
-/* Form actions */
-let editingId = null;
-        $('saveBtn').addEventListener('click', async () => {
-            if (!validateDonationForm()) return;
-  if(editingId){
-    // update
-    const obj = collectForm();
-    await updateRecord(editingId, obj);
-    editingId = null;
-    $('saveBtn').textContent = 'Save';
-    $('cancelEditBtn').style.display = 'none';
-    clearForm();
-    await refreshTable(); await refreshReport(); await updateSuggestions();
-    alert('Record updated');
-    return;
-  }
-  // add new
-  const obj = collectForm();
-  if(!obj.name || !obj.amount) return alert('Please enter at least Name and Amount');
-  // assign serial
-  const serial = await getNextSerial();
-  obj.serial = serial;
-  try{
-    await addRecord(obj);
-  }catch(err){
-    alert('Error saving: ' + err);
-    return;
-  }
-  clearForm();
-  await refreshTable(); await refreshReport(); await updateSuggestions();
-  alert('Saved — Serial: ' + serial);
-});
-$('cancelEditBtn').addEventListener('click', ()=>{
-  editingId = null;
-  $('cancelEditBtn').style.display = 'none';
-  $('saveBtn').textContent = 'Save';
-  clearForm();
-});
-
-$('clearBtn').addEventListener('click', clearForm);
-$('deleteAll').addEventListener('click', async ()=>{
-  if(confirm('Delete ALL records and reset serial? This cannot be undone.')){
-    await clearAll();
-    await refreshTable(); await refreshReport(); await updateSuggestions(); await peekSerial();
-  }
-});
-
-/* collect / fill form */
-function collectForm(){
-  return {
-    name: $('donorName').value.trim(),
-    amount: Number($('amount').value) || 0,
-    date: $('donationDate').value || formatDate(new Date()),
-    contact: $('contact').value.trim(),
-    account: $('account').value.trim(),
-    area: $('area').value.trim(),
-    subArea: $('subArea').value.trim(),
-    notes: $('notes').value.trim()
-  };
-}
-function fillForm(rec){
-  $('donorName').value = rec.name || '';
-  $('amount').value = rec.amount || '';
-  $('donationDate').value = rec.date || formatDate(new Date());
-  $('contact').value = rec.contact || '';
-  $('account').value = rec.account || '';
-  $('area').value = rec.area || '';
-  $('subArea').value = rec.subArea || '';
-  $('notes').value = rec.notes || '';
-  $('serialNo').value = rec.serial || '';
-}
-
-        function validateDonationForm() {
-
-            let valid = true;
-
-            // reset previous errors
-            document.querySelectorAll('.is-invalid').forEach(el =>
-                el.classList.remove('is-invalid')
-            );
-
-            // helpers
-            const markInvalid = (el) => {
-                el.classList.add('is-invalid');
-                valid = false;
-            };
-
-            // Amount
-            const amount = document.getElementById('amount');
-            if (!amount.value || Number(amount.value) <= 0) {
-                markInvalid(amount);
+            function openDb() {
+                return new Promise((resolve, reject) => {
+                    const req = indexedDB.open(DB_NAME, DB_VERSION);
+                    req.onupgradeneeded = e => {
+                        const db = e.target.result;
+                        if (!db.objectStoreNames.contains(STORE)) {
+                            const store = db.createObjectStore(STORE, { keyPath: 'id', autoIncrement: true });
+                            store.createIndex('date', 'date', { unique: false });
+                            store.createIndex('name', 'name', { unique: false });
+                        }
+                        if (!db.objectStoreNames.contains(META)) {
+                            db.createObjectStore(META, { keyPath: 'key' });
+                        }
+                    };
+                    req.onsuccess = () => resolve(req.result);
+                    req.onerror = () => reject(req.error);
+                });
             }
 
-            // Donor Name
-            const donorName = document.getElementById('donorName');
-            if (!donorName.value.trim()) {
-                markInvalid(donorName);
+            async function getMeta(key) {
+                const db = await openDb();
+                if (!db.objectStoreNames.contains(META)) return null;
+                return new Promise((resolve, reject) => {
+                    const tx = db.transaction(META, 'readonly');
+                    const req = tx.objectStore(META).get(key);
+                    req.onsuccess = () => resolve(req.result ? req.result.value : null);
+                    req.onerror = () => resolve(null);
+                });
+            }
+            async function setMeta(key, value) {
+                const db = await openDb();
+                if (!db.objectStoreNames.contains(META)) return;
+                return new Promise((resolve, reject) => {
+                    const tx = db.transaction(META, 'readwrite');
+                    tx.objectStore(META).put({ key, value });
+                    tx.oncomplete = () => resolve(true);
+                    tx.onerror = () => reject(tx.error);
+                });
             }
 
-            // Account (hidden input set by buttons)
-            const account = document.getElementById('account');
-            if (!account.value.trim()) {
-                // visually highlight account label box
-                document.getElementById('lbl-account')
-                    .classList.add('text-danger');
-                valid = false;
-            } else {
-                document.getElementById('lbl-account')
-                    .classList.remove('text-danger');
+            async function addRecord(obj) {
+                const db = await openDb();
+                return new Promise((resolve, reject) => {
+                    const tx = db.transaction(STORE, 'readwrite');
+                    tx.objectStore(STORE).add(obj);
+                    tx.oncomplete = () => resolve(true);
+                    tx.onerror = () => reject(tx.error);
+                });
+            }
+            async function updateRecord(id, obj) {
+                const db = await openDb();
+                return new Promise((resolve, reject) => {
+                    const tx = db.transaction(STORE, 'readwrite');
+                    const store = tx.objectStore(STORE);
+                    const getReq = store.get(id);
+                    getReq.onsuccess = () => {
+                        const existing = getReq.result;
+                        if (!existing) return reject(new Error('Not found'));
+                        const updated = Object.assign({}, existing, obj);
+                        store.put(updated);
+                    };
+                    tx.oncomplete = () => resolve(true);
+                    tx.onerror = () => reject(tx.error);
+                });
+            }
+            async function getRecord(id) {
+                const db = await openDb();
+                return new Promise((resolve, reject) => {
+                    const tx = db.transaction(STORE, 'readonly');
+                    const req = tx.objectStore(STORE).get(id);
+                    req.onsuccess = () => resolve(req.result);
+                    req.onerror = () => reject(req.error);
+                });
+            }
+            async function getAllRecords() {
+                const db = await openDb();
+                return new Promise((resolve, reject) => {
+                    if (!db.objectStoreNames.contains(STORE)) return resolve([]);
+                    const tx = db.transaction(STORE, 'readonly');
+                    const req = tx.objectStore(STORE).getAll();
+                    req.onsuccess = () => resolve(req.result || []);
+                    req.onerror = () => reject(req.error);
+                });
+            }
+            async function deleteRecord(id) {
+                const db = await openDb();
+                return new Promise((resolve, reject) => {
+                    const tx = db.transaction(STORE, 'readwrite');
+                    tx.objectStore(STORE).delete(id);
+                    tx.oncomplete = () => resolve(true);
+                    tx.onerror = () => reject(tx.error);
+                });
+            }
+            async function clearAll() {
+                const db = await openDb();
+                return new Promise((resolve, reject) => {
+                    const tx = db.transaction(STORE, 'readwrite');
+                    tx.objectStore(STORE).clear();
+                    tx.oncomplete = async () => {
+                        // reset serial counter
+                        await setMeta('serialCounter', 1);
+                        resolve(true);
+                    };
+                    tx.onerror = () => reject(tx.error);
+                });
             }
 
-            // Area
-            const area = document.getElementById('area');
-            if (!area.value.trim()) {
-                markInvalid(area);
+            /* UI helpers */
+            const $ = id => document.getElementById(id);
+            function formatDate(d) { if (!d) return ''; return new Date(d).toISOString().slice(0, 10); }
+            function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+
+            /* Serial counter logic */
+            async function getNextSerial() {
+                let s = await getMeta('serialCounter');
+                if (s === null || s === undefined) s = 1;
+                await setMeta('serialCounter', Number(s) + 1);
+                return Number(s);
+            }
+            async function peekSerial() {
+                let s = await getMeta('serialCounter');
+                if (s === null || s === undefined) s = 1;
+                $('serialNo').value = String(s);
             }
 
-            // Sub Area
-            const subArea = document.getElementById('subArea');
-            if (!subArea.value.trim()) {
-                markInvalid(subArea);
+            /* Render table */
+            async function refreshTable() {
+                const rows = await getAllRecords();
+                const tbody = document.querySelector('#recordsTable tbody');
+                tbody.innerHTML = '';
+                // show newest first
+                rows.sort((a, b) => new Date(b.date) - new Date(a.date));
+                rows.forEach(r => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `<td>${r.serial || ''}</td>
+              <td>${escapeHtml(r.name || '')}</td>
+              <td>${r.amount || ''}</td>
+              <td>${escapeHtml(r.account || '')}</td>
+              <td>${escapeHtml(r.area || '')}</td>
+              <td>${escapeHtml(r.subArea || '')}</td>
+              <td>${r.date || ''}</td>
+              <td>
+                <button data-id="${r.id}" class="btn btn-sm btn-warning edit">Edit</button>
+                <button data-id="${r.id}" class="btn btn-sm btn-danger del">Delete</button>
+              </td>`;
+                    tbody.appendChild(tr);
+                });
+                // attach handlers
+                document.querySelectorAll('.del').forEach(btn => btn.addEventListener('click', async e => {
+                    const id = Number(e.currentTarget.dataset.id);
+                    if (confirm('Delete record #' + id + '?')) {
+                        await deleteRecord(id);
+                        // if no records left, reset serialCounter handled by clearAll only; but check:
+                        const all = await getAllRecords();
+                        if (all.length === 0) await setMeta('serialCounter', 1);
+                        await refreshTable(); await refreshReport(); await updateSuggestions();
+                    }
+                }));
+                document.querySelectorAll('.edit').forEach(btn => btn.addEventListener('click', async e => {
+                    const id = Number(e.currentTarget.dataset.id);
+                    const rec = await getRecord(id);
+                    if (!rec) return alert('Record not found');
+                    fillForm(rec);
+                    editingId = id;
+                    $('cancelEditBtn').style.display = 'inline-block';
+                    $('saveBtn').textContent = 'Update';
+                }));
             }
 
-            if (!valid) {
-                alert('Please fill all mandatory fields.');
-            }
-
-            return valid;
-        }
-
-
-/* Reports */
-async function refreshReport(){
-  const all = await getAllRecords();
-  applyReportFilterAndRender(all);
-}
-function applyReportFilterAndRender(rows){
-  const from = $('reportFrom').value; const to = $('reportTo').value;
-  const nameQ = $('reportName').value.trim().toLowerCase();
-  const acc = $('reportAccount').value.trim().toLowerCase();
-  const areaQ = $('reportArea').value.trim().toLowerCase();
-  let filtered = rows.slice();
-  if(from) filtered = filtered.filter(r=> r.date >= from);
-  if(to) filtered = filtered.filter(r=> r.date <= to);
-  if(nameQ) filtered = filtered.filter(r=> (r.name||'').toLowerCase().includes(nameQ));
-  if(acc) filtered = filtered.filter(r=> (r.account||'').toLowerCase().includes(acc));
-  if(areaQ) filtered = filtered.filter(r=> (r.area||'').toLowerCase().includes(areaQ));
-  const sum = filtered.reduce((s,r)=> s + Number(r.amount || 0), 0);
-  const count = filtered.length;
-  $('reportSummary').innerHTML = `<strong>Total:</strong> ${sum} | <strong>Count:</strong> ${count}`;
-  const tbody = document.querySelector('#reportTable tbody'); tbody.innerHTML = '';
-  filtered.sort((a,b)=> new Date(b.date) - new Date(a.date)).forEach((r,i)=>{
-    const tr = document.createElement('tr');
-    tr.innerHTML = `<td>${i+1}</td><td>${escapeHtml(r.name||'')}</td><td>${r.amount||''}</td><td>${escapeHtml(r.account||'')}</td><td>${escapeHtml(r.area||'')}</td><td>${r.date||''}</td>`;
-    tbody.appendChild(tr);
-  });
-  return filtered;
-}
-$('applyReport').addEventListener('click', async ()=>{ const all = await getAllRecords(); applyReportFilterAndRender(all); });
-$('resetReport').addEventListener('click', async ()=>{ $('reportFrom').value=''; $('reportTo').value=''; $('reportName').value=''; $('reportAccount').value=''; $('reportArea').value=''; const all = await getAllRecords(); applyReportFilterAndRender(all); });
-
-///* Export Excel with single-row bold header */
-//function exportRecordsToExcel(rows, filename='donations.xlsx'){
-//  if(!rows || !rows.length) return alert('No records to export');
-//  const bookNo = rows[0].bookNo || '';
-//  const area = rows[0].area || '';
-//  const subArea = rows[0].subArea || '';
-//  const data = rows.map(r=> ({
-//    Serial: r.serial,
-//    Date: r.date,
-//    Name: r.name,
-//    Amount: r.amount,
-//    Account: r.account,
-//    Area: r.area,
-//    SubArea: r.subArea,
-//    Contact: r.contact,
-//    Notes: r.notes
-//  }));
-//  // worksheet
-//  const ws = XLSX.utils.aoa_to_sheet([]);
-//  // header single row bold (we'll add values, styling best-effort)
-//  const headerRow = ["Book No", bookNo, "Area", area, "Sub Area", subArea];
-//  XLSX.utils.sheet_add_aoa(ws, [headerRow], { origin: "A1" });
-//  // add a blank row
-//  XLSX.utils.sheet_add_aoa(ws, [[]], { origin: "A2" });
-//  // add data starting at A3
-//  XLSX.utils.sheet_add_json(ws, data, { origin: "A3", skipHeader: false });
-//  // attempt to set bold for header cells (note: some XLSX builds support .s)
-//  try{
-//    const range = XLSX.utils.decode_range(ws['!ref']);
-//    for(let c=0;c<=5;c++){
-//      const cell = XLSX.utils.encode_cell({r:0,c});
-//      if(ws[cell]) ws[cell].s = { font: { bold: true } };
-//    }
-//  }catch(e){}
-//  const wb = XLSX.utils.book_new();
-//  XLSX.utils.book_append_sheet(wb, ws, 'Donations');
-//  XLSX.writeFile(wb, filename);
-//        }
-
-        // ======================================================
-        //  EXCEL EXPORT WITH GROUPING: AREA → SUB AREA
-        // ======================================================
-        async function exportRecordsToExcel(rows, filename = "donations_grouped.xlsx") {
-
-            if (!rows || !rows.length) return alert("No records to export");
-
-            // -----------------------------------------
-            // GROUP BY AREA → SUBAREA
-            // -----------------------------------------
-            const areaGroups = {};
-            rows.forEach(r => {
-                const area = r.area || "Unknown Area";
-                const sub = r.subArea || "Unknown Sub Area";
-
-                if (!areaGroups[area]) areaGroups[area] = {};
-                if (!areaGroups[area][sub]) areaGroups[area][sub] = [];
-
-                areaGroups[area][sub].push(r);
+            /* Form actions */
+            let editingId = null;
+            $('saveBtn').addEventListener('click', async () => {
+                if (!validateDonationForm()) return;
+                if (editingId) {
+                    // update
+                    const obj = collectForm();
+                    await updateRecord(editingId, obj);
+                    editingId = null;
+                    $('saveBtn').textContent = 'Save';
+                    $('cancelEditBtn').style.display = 'none';
+                    clearForm();
+                    await refreshTable(); await refreshReport(); await updateSuggestions();
+                    alert('Record updated');
+                    return;
+                }
+                // add new
+                const obj = collectForm();
+                if (!obj.name || !obj.amount) return alert('Please enter at least Name and Amount');
+                // assign serial
+                const serial = await getNextSerial();
+                obj.serial = serial;
+                try {
+                    await addRecord(obj);
+                } catch (err) {
+                    alert('Error saving: ' + err);
+                    return;
+                }
+                clearForm();
+                await refreshTable(); await refreshReport(); await updateSuggestions();
+                alert('Saved — Serial: ' + serial);
+            });
+            $('cancelEditBtn').addEventListener('click', () => {
+                editingId = null;
+                $('cancelEditBtn').style.display = 'none';
+                $('saveBtn').textContent = 'Save';
+                clearForm();
             });
 
-            // -----------------------------------------
-            // PREPARE SHEET (AOA)
-            // -----------------------------------------
-            const sheet = [];
-            const HEADERS = ["Amount", "Name", "Account"];
+            $('clearBtn').addEventListener('click', clearForm);
+            $('deleteAll').addEventListener('click', async () => {
+                if (confirm('Delete ALL records and reset serial? This cannot be undone.')) {
+                    await clearAll();
+                    await refreshTable(); await refreshReport(); await updateSuggestions(); await peekSerial();
+                }
+            });
 
-            // Keep track of styled cell positions later
-            let styledCells = [];
+            /* collect / fill form */
+            function collectForm() {
+                return {
+                    name: $('donorName').value.trim(),
+                    amount: Number($('amount').value) || 0,
+                    date: $('donationDate').value || formatDate(new Date()),
+                    contact: $('contact').value.trim(),
+                    account: $('account').value.trim(),
+                    area: $('area').value.trim(),
+                    subArea: $('subArea').value.trim(),
+                    notes: $('notes').value.trim()
+                };
+            }
+            function fillForm(rec) {
+                $('donorName').value = rec.name || '';
+                $('amount').value = rec.amount || '';
+                $('donationDate').value = rec.date || formatDate(new Date());
+                $('contact').value = rec.contact || '';
+                $('account').value = rec.account || '';
+                $('area').value = rec.area || '';
+                $('subArea').value = rec.subArea || '';
+                $('notes').value = rec.notes || '';
+                $('serialNo').value = rec.serial || '';
+            }
 
-            // Loop Areas
-            Object.keys(areaGroups).forEach(area => {
+            function validateDonationForm() {
 
-                // AREA HEADER (big & bold)
-                const areaRowIndex = sheet.length;
-                sheet.push([`${area.toUpperCase()} REPORT`]);
-                styledCells.push({ r: areaRowIndex, c: 0, type: "areaHeader" });
+                let valid = true;
 
-                sheet.push([]); // empty row
+                // reset previous errors
+                document.querySelectorAll('.is-invalid').forEach(el =>
+                    el.classList.remove('is-invalid')
+                );
 
-                // Loop Sub Areas
-                Object.keys(areaGroups[area]).forEach(sub => {
+                // helpers
+                const markInvalid = (el) => {
+                    el.classList.add('is-invalid');
+                    valid = false;
+                };
 
-                    // SUBAREA HEADER (bold)
-                    const subRowIndex = sheet.length;
-                    sheet.push([`SUB AREA: ${sub.toUpperCase()}`]);
-                    styledCells.push({ r: subRowIndex, c: 0, type: "subHeader" });
+                // Amount
+                const amount = document.getElementById('amount');
+                if (!amount.value || Number(amount.value) <= 0) {
+                    markInvalid(amount);
+                }
 
-                    sheet.push([]);
+                // Donor Name
+                const donorName = document.getElementById('donorName');
+                if (!donorName.value.trim()) {
+                    markInvalid(donorName);
+                }
 
-                    // TABLE HEADERS (colored row)
-                    const headerRowIndex = sheet.length;
-                    sheet.push([...HEADERS]);
-                    HEADERS.forEach((h, i) =>
-                        styledCells.push({ r: headerRowIndex, c: i, type: "tableHeader" })
-                    );
+                // Account (hidden input set by buttons)
+                const account = document.getElementById('account');
+                if (!account.value.trim()) {
+                    // visually highlight account label box
+                    document.getElementById('lbl-account')
+                        .classList.add('text-danger');
+                    valid = false;
+                } else {
+                    document.getElementById('lbl-account')
+                        .classList.remove('text-danger');
+                }
 
-                    // DATA ROWS
-                    areaGroups[area][sub].forEach(r => {
-                        sheet.push([
-                            r.amount || "",
-                            r.name || "",
-                            r.account || ""
-                        ]);
+                // Area
+                const area = document.getElementById('area');
+                if (!area.value.trim()) {
+                    markInvalid(area);
+                }
+
+                // Sub Area
+                const subArea = document.getElementById('subArea');
+                if (!subArea.value.trim()) {
+                    markInvalid(subArea);
+                }
+
+                if (!valid) {
+                    alert('Please fill all mandatory fields.');
+                }
+
+                return valid;
+            }
+
+
+            /* Reports */
+            async function refreshReport() {
+                const all = await getAllRecords();
+                applyReportFilterAndRender(all);
+            }
+            function applyReportFilterAndRender(rows) {
+                const from = $('reportFrom').value; const to = $('reportTo').value;
+                const nameQ = $('reportName').value.trim().toLowerCase();
+                const acc = $('reportAccount').value.trim().toLowerCase();
+                const areaQ = $('reportArea').value.trim().toLowerCase();
+                let filtered = rows.slice();
+                if (from) filtered = filtered.filter(r => r.date >= from);
+                if (to) filtered = filtered.filter(r => r.date <= to);
+                if (nameQ) filtered = filtered.filter(r => (r.name || '').toLowerCase().includes(nameQ));
+                if (acc) filtered = filtered.filter(r => (r.account || '').toLowerCase().includes(acc));
+                if (areaQ) filtered = filtered.filter(r => (r.area || '').toLowerCase().includes(areaQ));
+                const sum = filtered.reduce((s, r) => s + Number(r.amount || 0), 0);
+                const count = filtered.length;
+                $('reportSummary').innerHTML = `<strong>Total:</strong> ${sum} | <strong>Count:</strong> ${count}`;
+                const tbody = document.querySelector('#reportTable tbody'); tbody.innerHTML = '';
+                filtered.sort((a, b) => new Date(b.date) - new Date(a.date)).forEach((r, i) => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `<td>${i + 1}</td><td>${escapeHtml(r.name || '')}</td><td>${r.amount || ''}</td><td>${escapeHtml(r.account || '')}</td><td>${escapeHtml(r.area || '')}</td><td>${r.date || ''}</td>`;
+                    tbody.appendChild(tr);
+                });
+                return filtered;
+            }
+            $('applyReport').addEventListener('click', async () => { const all = await getAllRecords(); applyReportFilterAndRender(all); });
+            $('resetReport').addEventListener('click', async () => { $('reportFrom').value = ''; $('reportTo').value = ''; $('reportName').value = ''; $('reportAccount').value = ''; $('reportArea').value = ''; const all = await getAllRecords(); applyReportFilterAndRender(all); });
+
+            ///* Export Excel with single-row bold header */
+            //function exportRecordsToExcel(rows, filename='donations.xlsx'){
+            //  if(!rows || !rows.length) return alert('No records to export');
+            //  const bookNo = rows[0].bookNo || '';
+            //  const area = rows[0].area || '';
+            //  const subArea = rows[0].subArea || '';
+            //  const data = rows.map(r=> ({
+            //    Serial: r.serial,
+            //    Date: r.date,
+            //    Name: r.name,
+            //    Amount: r.amount,
+            //    Account: r.account,
+            //    Area: r.area,
+            //    SubArea: r.subArea,
+            //    Contact: r.contact,
+            //    Notes: r.notes
+            //  }));
+            //  // worksheet
+            //  const ws = XLSX.utils.aoa_to_sheet([]);
+            //  // header single row bold (we'll add values, styling best-effort)
+            //  const headerRow = ["Book No", bookNo, "Area", area, "Sub Area", subArea];
+            //  XLSX.utils.sheet_add_aoa(ws, [headerRow], { origin: "A1" });
+            //  // add a blank row
+            //  XLSX.utils.sheet_add_aoa(ws, [[]], { origin: "A2" });
+            //  // add data starting at A3
+            //  XLSX.utils.sheet_add_json(ws, data, { origin: "A3", skipHeader: false });
+            //  // attempt to set bold for header cells (note: some XLSX builds support .s)
+            //  try{
+            //    const range = XLSX.utils.decode_range(ws['!ref']);
+            //    for(let c=0;c<=5;c++){
+            //      const cell = XLSX.utils.encode_cell({r:0,c});
+            //      if(ws[cell]) ws[cell].s = { font: { bold: true } };
+            //    }
+            //  }catch(e){}
+            //  const wb = XLSX.utils.book_new();
+            //  XLSX.utils.book_append_sheet(wb, ws, 'Donations');
+            //  XLSX.writeFile(wb, filename);
+            //        }
+
+            // ======================================================
+            //  EXCEL EXPORT WITH GROUPING: AREA → SUB AREA
+            // ======================================================
+            async function exportRecordsToExcel(rows, filename = "donations_grouped.xlsx") {
+
+                if (!rows || !rows.length) return alert("No records to export");
+
+                // -----------------------------------------
+                // GROUP BY AREA → SUBAREA
+                // -----------------------------------------
+                const areaGroups = {};
+                rows.forEach(r => {
+                    const area = r.area || "Unknown Area";
+                    const sub = r.subArea || "Unknown Sub Area";
+
+                    if (!areaGroups[area]) areaGroups[area] = {};
+                    if (!areaGroups[area][sub]) areaGroups[area][sub] = [];
+
+                    areaGroups[area][sub].push(r);
+                });
+
+                // -----------------------------------------
+                // PREPARE SHEET (AOA)
+                // -----------------------------------------
+                const sheet = [];
+                const HEADERS = ["Amount", "Name", "Account"];
+
+                // Keep track of styled cell positions later
+                let styledCells = [];
+
+                // Loop Areas
+                Object.keys(areaGroups).forEach(area => {
+
+                    // AREA HEADER (big & bold)
+                    const areaRowIndex = sheet.length;
+                    sheet.push([`${area.toUpperCase()} REPORT`]);
+                    styledCells.push({ r: areaRowIndex, c: 0, type: "areaHeader" });
+
+                    sheet.push([]); // empty row
+
+                    // Loop Sub Areas
+                    Object.keys(areaGroups[area]).forEach(sub => {
+
+                        // SUBAREA HEADER (bold)
+                        const subRowIndex = sheet.length;
+                        sheet.push([`SUB AREA: ${sub.toUpperCase()}`]);
+                        styledCells.push({ r: subRowIndex, c: 0, type: "subHeader" });
+
+                        sheet.push([]);
+
+                        // TABLE HEADERS (colored row)
+                        const headerRowIndex = sheet.length;
+                        sheet.push([...HEADERS]);
+                        HEADERS.forEach((h, i) =>
+                            styledCells.push({ r: headerRowIndex, c: i, type: "tableHeader" })
+                        );
+
+                        // DATA ROWS
+                        areaGroups[area][sub].forEach(r => {
+                            sheet.push([
+                                r.amount || "",
+                                r.name || "",
+                                r.account || ""
+                            ]);
+                        });
+
+                        sheet.push([]); // space after subarea
                     });
 
-                    sheet.push([]); // space after subarea
+                    sheet.push([]); // space after area
                 });
 
-                sheet.push([]); // space after area
-            });
 
+                // Convert AOA → Worksheet
+                const ws = XLSX.utils.aoa_to_sheet(sheet);
 
-            // Convert AOA → Worksheet
-            const ws = XLSX.utils.aoa_to_sheet(sheet);
+                // -----------------------------
+                // COLUMN WIDTHS
+                // -----------------------------
+                ws["!cols"] = [
+                    { wch: 12 }, // Amount
+                    { wch: 25 }, // Name
+                    { wch: 15 }  // Account
+                ];
 
-            // -----------------------------
-            // COLUMN WIDTHS
-            // -----------------------------
-            ws["!cols"] = [
-                { wch: 12 }, // Amount
-                { wch: 25 }, // Name
-                { wch: 15 }  // Account
-            ];
+                // -----------------------------
+                // BORDER + ALIGNMENT FOR ALL CELLS
+                // -----------------------------
+                const range = XLSX.utils.decode_range(ws["!ref"]);
 
-            // -----------------------------
-            // BORDER + ALIGNMENT FOR ALL CELLS
-            // -----------------------------
-            const range = XLSX.utils.decode_range(ws["!ref"]);
+                for (let R = range.s.r; R <= range.e.r; ++R) {
+                    for (let C = range.s.c; C <= range.e.c; ++C) {
 
-            for (let R = range.s.r; R <= range.e.r; ++R) {
-                for (let C = range.s.c; C <= range.e.c; ++C) {
+                        const cellRef = XLSX.utils.encode_cell({ r: R, c: C });
+                        const cell = ws[cellRef];
+                        if (!cell) continue;
 
-                    const cellRef = XLSX.utils.encode_cell({ r: R, c: C });
+                        if (!cell.s) cell.s = {};
+
+                        // universal alignment
+                        cell.s.alignment = {
+                            vertical: "center",
+                            horizontal: C === 0 ? "center" : "left",
+                            wrapText: true
+                        };
+
+                        // universal borders
+                        cell.s.border = {
+                            top: { style: "thin", color: { rgb: "000000" } },
+                            left: { style: "thin", color: { rgb: "000000" } },
+                            bottom: { style: "thin", color: { rgb: "000000" } },
+                            right: { style: "thin", color: { rgb: "000000" } }
+                        };
+                    }
+                }
+
+                // ---------------------------------------
+                // APPLY SPECIAL STYLING FOR HEADERS
+                // ---------------------------------------
+                styledCells.forEach(c => {
+                    const cellRef = XLSX.utils.encode_cell({ r: c.r, c: c.c });
                     const cell = ws[cellRef];
-                    if (!cell) continue;
+                    if (!cell) return;
 
-                    if (!cell.s) cell.s = {};
+                    cell.s = cell.s || {};
 
-                    // universal alignment
-                    cell.s.alignment = {
-                        vertical: "center",
-                        horizontal: C === 0 ? "center" : "left",
-                        wrapText: true
-                    };
-
-                    // universal borders
-                    cell.s.border = {
-                        top: { style: "thin", color: { rgb: "000000" } },
-                        left: { style: "thin", color: { rgb: "000000" } },
-                        bottom: { style: "thin", color: { rgb: "000000" } },
-                        right: { style: "thin", color: { rgb: "000000" } }
-                    };
-                }
-            }
-
-            // ---------------------------------------
-            // APPLY SPECIAL STYLING FOR HEADERS
-            // ---------------------------------------
-            styledCells.forEach(c => {
-                const cellRef = XLSX.utils.encode_cell({ r: c.r, c: c.c });
-                const cell = ws[cellRef];
-                if (!cell) return;
-
-                cell.s = cell.s || {};
-
-                if (c.type === "areaHeader") {
-                    cell.s.font = { bold: true, sz: 16, color: { rgb: "1F4E78" } };
-                }
-                if (c.type === "subHeader") {
-                    cell.s.font = { bold: true, sz: 13, color: { rgb: "7030A0" } };
-                }
-                if (c.type === "tableHeader") {
-                    cell.s.font = { bold: true, color: { rgb: "FFFFFF" } };
-                    cell.s.fill = { fgColor: { rgb: "4472C4" } }; // blue
-                    cell.s.alignment = { horizontal: "center", vertical: "center" };
-                }
-            });
-
-
-            // -----------------------------
-            // EXPORT FILE
-            // -----------------------------
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "Grouped");
-            XLSX.writeFile(wb, filename);
-        }
-
-
-$('exportExcel').addEventListener('click', async ()=>{ const all = await getAllRecords(); exportRecordsToExcel(all, 'donations_all.xlsx'); });
-$('exportExcelTop').addEventListener('click', async ()=>{ const all = await getAllRecords(); exportRecordsToExcel(all, 'donations_all.xlsx'); });
-$('exportFiltered').addEventListener('click', async ()=>{ const all = await getAllRecords(); const filtered = applyReportFilterAndRender(all); exportRecordsToExcel(filtered, 'donations_filtered.xlsx'); });
-
-/* Suggestions (datalist) */
-async function updateSuggestions(){
-  const all = await getAllRecords();
-  const donors = Array.from(new Set(all.map(r=> r.name).filter(Boolean))).slice(-200);
-    const areas = Array.from(new Set(all.map(r => r.area).filter(Boolean))).slice(-200);
-    const subAreas = Array.from(new Set(all.map(r => r.subArea).filter(Boolean))).slice(-200);
-  const donorList = $('donorSuggestions'); donorList.innerHTML = '';
-  donors.forEach(d=>{ const o=document.createElement('option'); o.value=d; donorList.appendChild(o); });
-  const areaList = $('areaSuggestions'); areaList.innerHTML = '';
-    areas.forEach(a => { const o = document.createElement('option'); o.value = a; areaList.appendChild(o); });
-    const subAreaList = $('subAreaSuggestions'); subAreaList.innerHTML = '';
-    subAreas.forEach(a => { const o = document.createElement('option'); o.value = a; subAreaList.appendChild(o); });
-}
-
-        /* Account buttons */
-        document.querySelectorAll('.acc-btn').forEach(btn => {
-            btn.addEventListener('click', e => {
-
-                const value = e.currentTarget.dataset.val;
-
-                // Set hidden account value (ONCE)
-                const accountInput = document.getElementById('account');
-                accountInput.value = value;
-
-                // Remove active state from all buttons
-                document.querySelectorAll('.acc-btn')
-                    .forEach(b => b.classList.remove('active-acc'));
-
-                // Activate clicked button
-                e.currentTarget.classList.add('active-acc');
-
-                // Remove validation error (if any)
-                document.getElementById('lbl-account')
-                    .classList.remove('text-danger');
-            });
-        });
-
-
-/* Voice assist (simple) */
-let recognition = null;
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || null;
-if(SpeechRecognition){
-  recognition = new SpeechRecognition();
-  recognition.lang = 'en-IN';
-  recognition.interimResults = false;
-  recognition.maxAlternatives = 1;
-  recognition.onresult = e => { parseVoiceText(e.results[0][0].transcript.trim()); };
-  recognition.onerror = e => { console.warn('Speech error', e); alert('Voice error: ' + e.error); toggleVoiceBtn(false); };
-  recognition.onend = ()=> toggleVoiceBtn(false);
-  $('voiceBtn').addEventListener('click', ()=> { try{ recognition.start(); toggleVoiceBtn(true);}catch(e){console.warn(e);} });
-} else {
-  $('voiceBtn').disabled = true;
-}
-function toggleVoiceBtn(active){ const b=$('voiceBtn'); if(active){ b.classList.add('recording'); b.textContent='🎙️ Listening...'; } else { b.classList.remove('recording'); b.textContent='🎤 Voice Fill'; } }
-function parseVoiceText(text){
-  const raw = text.trim();
-  if(/^save$|^save record$|^save receipt$/i.test(raw)){ $('saveBtn').click(); return; }
-  if(raw.includes(':')){
-    const [k,...rest]= raw.split(':'); assignField(k.trim().toLowerCase(), rest.join(':').trim()); return;
-  }
-  const parts = raw.split(/\s+/); assignField(parts[0].toLowerCase(), parts.slice(1).join(' '));
-}
-function assignField(key,value){
-  if(!value) return;
-  if(['name','donor'].includes(key)) $('donorName').value = value;
-  else if(['amount','rupees','rs'].includes(key)) { const n=parseSpokenNumber(value); if(n) $('amount').value = n; }
-  else if(['date'].includes(key)){ const d=new Date(value); if(!isNaN(d)) $('donationDate').value = formatDate(d); }
-  else if(['account','type'].includes(key)) $('account').value = value;
-  else if(['area'].includes(key)) $('area').value = value;
-  else if(['subarea','sub area'].includes(key)) $('subArea').value = value;
-  else if(['contact','phone','mobile'].includes(key)) $('contact').value = value;
-  else { const cur=$('notes').value; $('notes').value = (cur?cur+' | ':'')+ key + ' ' + value; }
-}
-function parseSpokenNumber(text){
-  const map = {zero:0,one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10,eleven:11,twelve:12,twenty:20,thirty:30,forty:40,fifty:50,hundred:100,thousand:1000};
-  let tokens=text.toLowerCase().replace(/[^a-z0-9 ]+/g,' ').split(/\s+/).filter(Boolean);
-  for(const t of tokens){ if(/\d+/.test(t)) return Number(t); if(t in map) return map[t]; }
-  return null;
-}
-        function clearForm() {
-            //document.querySelector('#donationForm').reset();
-            $('donorName').value = '';
-            $('amount').value = '';
-            $('contact').value = '';
-            $('notes').value = '';
-
-            // Reset date to today (optional)
-            $('donationDate').value = formatDate(new Date());
-            editingId = null;
-            $('saveBtn').textContent = 'Save';
-            $('cancelEditBtn').style.display = 'none';
-
-            // Reset serial number indicator (next receipt no)
-            peekSerial();
-        }
-
-        
-
-
-/* Init */
-(async function(){
-  $('donationDate').value = formatDate(new Date());
-  // ensure serialCounter exists
-  let s = await getMeta('serialCounter');
-  if(s === null || s === undefined) await setMeta('serialCounter',1);
-  await peekSerial();
-  await refreshTable();
-  await refreshReport();
-    await updateSuggestions();
-    attachLiveValidation()
-        })();
-
-        function attachLiveValidation() {
-
-            const textInputs = ['amount', 'donorName', 'area', 'subArea'];
-
-            textInputs.forEach(id => {
-                const el = document.getElementById(id);
-
-                el.addEventListener('input', () => {
-                    if (el.value && (id !== 'amount' || Number(el.value) > 0)) {
-                        el.classList.remove('is-invalid');
+                    if (c.type === "areaHeader") {
+                        cell.s.font = { bold: true, sz: 16, color: { rgb: "1F4E78" } };
+                    }
+                    if (c.type === "subHeader") {
+                        cell.s.font = { bold: true, sz: 13, color: { rgb: "7030A0" } };
+                    }
+                    if (c.type === "tableHeader") {
+                        cell.s.font = { bold: true, color: { rgb: "FFFFFF" } };
+                        cell.s.fill = { fgColor: { rgb: "4472C4" } }; // blue
+                        cell.s.alignment = { horizontal: "center", vertical: "center" };
                     }
                 });
+
+
+                // -----------------------------
+                // EXPORT FILE
+                // -----------------------------
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "Grouped");
+                XLSX.writeFile(wb, filename);
+            }
+
+
+            $('exportExcel').addEventListener('click', async () => { const all = await getAllRecords(); exportRecordsToExcel(all, 'donations_all.xlsx'); });
+            $('exportExcelTop').addEventListener('click', async () => { const all = await getAllRecords(); exportRecordsToExcel(all, 'donations_all.xlsx'); });
+            $('exportFiltered').addEventListener('click', async () => { const all = await getAllRecords(); const filtered = applyReportFilterAndRender(all); exportRecordsToExcel(filtered, 'donations_filtered.xlsx'); });
+
+            /* Suggestions (datalist) */
+            async function updateSuggestions() {
+                const all = await getAllRecords();
+                const donors = Array.from(new Set(all.map(r => r.name).filter(Boolean))).slice(-200);
+                const areas = Array.from(new Set(all.map(r => r.area).filter(Boolean))).slice(-200);
+                const subAreas = Array.from(new Set(all.map(r => r.subArea).filter(Boolean))).slice(-200);
+                const donorList = $('donorSuggestions'); donorList.innerHTML = '';
+                donors.forEach(d => { const o = document.createElement('option'); o.value = d; donorList.appendChild(o); });
+                const areaList = $('areaSuggestions'); areaList.innerHTML = '';
+                areas.forEach(a => { const o = document.createElement('option'); o.value = a; areaList.appendChild(o); });
+                const subAreaList = $('subAreaSuggestions'); subAreaList.innerHTML = '';
+                subAreas.forEach(a => { const o = document.createElement('option'); o.value = a; subAreaList.appendChild(o); });
+            }
+
+            /* Account buttons */
+            document.querySelectorAll('.acc-btn').forEach(btn => {
+                btn.addEventListener('click', e => {
+
+                    const value = e.currentTarget.dataset.val;
+
+                    // Set hidden account value (ONCE)
+                    const accountInput = document.getElementById('account');
+                    accountInput.value = value;
+
+                    // Remove active state from all buttons
+                    document.querySelectorAll('.acc-btn')
+                        .forEach(b => b.classList.remove('active-acc'));
+
+                    // Activate clicked button
+                    e.currentTarget.classList.add('active-acc');
+
+                    // Remove validation error (if any)
+                    document.getElementById('lbl-account')
+                        .classList.remove('text-danger');
+                });
             });
 
-            // Account handled via buttons (label highlight)
-            const accountInput = document.getElementById('account');
-            const accountLabel = document.getElementById('lbl-account');
 
-            // safety (in case value set programmatically)
-            const observer = new MutationObserver(() => {
-                if (accountInput.value) {
-                    accountLabel.classList.remove('text-danger');
+            /* Voice assist (simple) */
+            let recognition = null;
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+            if (SpeechRecognition) {
+                recognition = new SpeechRecognition();
+                recognition.lang = 'en-IN';
+                recognition.interimResults = false;
+                recognition.maxAlternatives = 1;
+                recognition.onresult = e => { parseVoiceText(e.results[0][0].transcript.trim()); };
+                recognition.onerror = e => { console.warn('Speech error', e); alert('Voice error: ' + e.error); toggleVoiceBtn(false); };
+                recognition.onend = () => toggleVoiceBtn(false);
+                $('voiceBtn').addEventListener('click', () => { try { recognition.start(); toggleVoiceBtn(true); } catch (e) { console.warn(e); } });
+            } else {
+                $('voiceBtn').disabled = true;
+            }
+            function toggleVoiceBtn(active) { const b = $('voiceBtn'); if (active) { b.classList.add('recording'); b.textContent = '🎙️ Listening...'; } else { b.classList.remove('recording'); b.textContent = '🎤 Voice Fill'; } }
+            function parseVoiceText(text) {
+                const raw = text.trim();
+                if (/^save$|^save record$|^save receipt$/i.test(raw)) { $('saveBtn').click(); return; }
+                if (raw.includes(':')) {
+                    const [k, ...rest] = raw.split(':'); assignField(k.trim().toLowerCase(), rest.join(':').trim()); return;
                 }
-            });
+                const parts = raw.split(/\s+/); assignField(parts[0].toLowerCase(), parts.slice(1).join(' '));
+            }
+            function assignField(key, value) {
+                if (!value) return;
+                if (['name', 'donor'].includes(key)) $('donorName').value = value;
+                else if (['amount', 'rupees', 'rs'].includes(key)) { const n = parseSpokenNumber(value); if (n) $('amount').value = n; }
+                else if (['date'].includes(key)) { const d = new Date(value); if (!isNaN(d)) $('donationDate').value = formatDate(d); }
+                else if (['account', 'type'].includes(key)) $('account').value = value;
+                else if (['area'].includes(key)) $('area').value = value;
+                else if (['subarea', 'sub area'].includes(key)) $('subArea').value = value;
+                else if (['contact', 'phone', 'mobile'].includes(key)) $('contact').value = value;
+                else { const cur = $('notes').value; $('notes').value = (cur ? cur + ' | ' : '') + key + ' ' + value; }
+            }
+            function parseSpokenNumber(text) {
+                const map = { zero: 0, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12, twenty: 20, thirty: 30, forty: 40, fifty: 50, hundred: 100, thousand: 1000 };
+                let tokens = text.toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').split(/\s+/).filter(Boolean);
+                for (const t of tokens) { if (/\d+/.test(t)) return Number(t); if (t in map) return map[t]; }
+                return null;
+            }
+            function clearForm() {
+                //document.querySelector('#donationForm').reset();
+                $('donorName').value = '';
+                $('amount').value = '';
+                $('contact').value = '';
+                $('notes').value = '';
 
-            observer.observe(accountInput, { attributes: true, attributeFilter: ['value'] });
-        }
+                // Reset date to today (optional)
+                $('donationDate').value = formatDate(new Date());
+                editingId = null;
+                $('saveBtn').textContent = 'Save';
+                $('cancelEditBtn').style.display = 'none';
+
+                // Reset serial number indicator (next receipt no)
+                peekSerial();
+            }
 
 
-    </script>
+
+
+            /* Init */
+            (async function () {
+                $('donationDate').value = formatDate(new Date());
+                // ensure serialCounter exists
+                let s = await getMeta('serialCounter');
+                if (s === null || s === undefined) await setMeta('serialCounter', 1);
+                await peekSerial();
+                await refreshTable();
+                await refreshReport();
+                await updateSuggestions();
+                attachLiveValidation()
+            })();
+
+            function attachLiveValidation() {
+
+                const textInputs = ['amount', 'donorName', 'area', 'subArea'];
+
+                textInputs.forEach(id => {
+                    const el = document.getElementById(id);
+
+                    el.addEventListener('input', () => {
+                        if (el.value && (id !== 'amount' || Number(el.value) > 0)) {
+                            el.classList.remove('is-invalid');
+                        }
+                    });
+                });
+
+                // Account handled via buttons (label highlight)
+                const accountInput = document.getElementById('account');
+                const accountLabel = document.getElementById('lbl-account');
+
+                // safety (in case value set programmatically)
+                const observer = new MutationObserver(() => {
+                    if (accountInput.value) {
+                        accountLabel.classList.remove('text-danger');
+                    }
+                });
+
+                observer.observe(accountInput, { attributes: true, attributeFilter: ['value'] });
+            }
+
+
+        </script>
 </body>
 </html>
