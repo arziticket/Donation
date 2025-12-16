@@ -55,8 +55,10 @@
             padding: 16px;
             border-radius: 12px;
         }
-    </style>
-
+        .is-invalid {
+            border-color: #dc3545 !important;
+        }
+    </style>   
 </head>
 <body>
     <div class="container">
@@ -66,58 +68,46 @@
         <div class="card mb-3">
             <div class="card-body">
                 <form id="donationForm" autocomplete="off">
-                    <div class="row g-2">
-                        <!--<div class="col-md-4">
-        <label class="form-label">Amount (INR)</label>
-        <input type="number" id="amount" class="form-control" placeholder="Amount">
-    </div>
-
-    <div class="col-md-4">
-        <label class="form-label">Donor Name</label>
-        <input list="donorSuggestions" id="donorName" class="form-control" placeholder="Full name">
-        <datalist id="donorSuggestions"></datalist>
-    </div>
-
-    <div class="col-md-4">
-        <label class="form-label">Account</label>
-        <input id="account" class="form-control" placeholder="Sadka / Lillah / Zakat / Fitra / Fidya">
-        <div class="mt-2">
-            <button type="button" class="acc-btn btn-sm" data-val="Sadka">Sadka</button>
-            <button type="button" class="acc-btn btn-sm" data-val="Lillah">Lillah</button>
-            <button type="button" class="acc-btn btn-sm" data-val="Zakat">Zakat</button>
-            <button type="button" class="acc-btn btn-sm" data-val="Fitra">Fitra</button>
-            <button type="button" class="acc-btn btn-sm" data-val="Fidya">Fidya</button>
-        </div>
-    </div>-->
+                    <div class="row g-2">                       
                         <!-- ESSENTIAL DETAILS BOX -->
                         <div class="p-3 border border-primary rounded-3 mb-3 bg-light essential-box">
                             <h6 class="text-primary fw-bold mb-3"> Essential Donation Details</h6>
 
                             <div class="row g-2">
 
-                                <div class="col-md-4">
-                                    <label class="form-label">Amount (INR)</label>
+                                <div class="col-md-2">
+                                    <label class="form-label">Amount</label>
                                     <input type="number" id="amount" class="form-control" placeholder="Amount">
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <label class="form-label">Donor Name</label>
                                     <input list="donorSuggestions" id="donorName" class="form-control" placeholder="Full name">
                                     <datalist id="donorSuggestions"></datalist>
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label  id="lbl-account" class="form-label">Account</label>
-                                    <input id="account" class="form-control" style="display:none" placeholder="Sadka / Lillah / Zakat / Fitra / Fidya">
+                                    <label id="lbl-account" class="form-label">Account</label>
                                     <div>
-                                        <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Sadka">Sadka</button>
-                                        <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Lillah">Lillah</button>
-                                        <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Zakat">Zakat</button>
-                                        <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Fitra">Fitra</button>
-                                        <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Fidya">Fidya</button>
+                                        <input id="account" class="form-control" Style="width:350px" placeholder="Sadka / Lillah / Zakat / Fitra / Fidya">
+                                        <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Sa">Sadka</button>
+                                        <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Li">Lillah</button>
+                                        <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Za">Zakat</button>
+                                        <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Fi">Fitra</button>
+                                        <button type="button" class="acc-btn btn-sm btn-outline-primary" data-val="Fid">Fidya</button>
                                     </div>
                                 </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">Area</label>
+                                    <input list="areaSuggestions" id="area" class="form-control" placeholder="Area / City">
+                                    <datalist id="areaSuggestions"></datalist>
+                                </div>
 
+                                <div class="col-md-2">
+                                    <label class="form-label">Sub Area</label>
+                                    <input list="subAreaSuggestions" id="subArea" class="form-control" placeholder="Sub Area / Colony">
+                                    <datalist id="subAreaSuggestions"></datalist>
+                                </div>
                             </div>
                         </div>
                         <!-- END ESSENTIAL DETAILS BOX -->
@@ -140,16 +130,7 @@
 
 
 
-                        <div class="col-md-4">
-                            <label class="form-label">Area</label>
-                            <input list="areaSuggestions" id="area" class="form-control" placeholder="Area / City">
-                            <datalist id="areaSuggestions"></datalist>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label class="form-label">Sub Area</label>
-                            <input id="subArea" class="form-control" placeholder="Sub Area / Colony">
-                        </div>
+                       
 
                         <div class="col-md-4">
                             <label class="form-label">Notes</label>
@@ -403,7 +384,8 @@ async function refreshTable(){
 
 /* Form actions */
 let editingId = null;
-$('saveBtn').addEventListener('click', async ()=>{
+        $('saveBtn').addEventListener('click', async () => {
+            if (!validateDonationForm()) return;
   if(editingId){
     // update
     const obj = collectForm();
@@ -471,6 +453,65 @@ function fillForm(rec){
   $('notes').value = rec.notes || '';
   $('serialNo').value = rec.serial || '';
 }
+
+        function validateDonationForm() {
+
+            let valid = true;
+
+            // reset previous errors
+            document.querySelectorAll('.is-invalid').forEach(el =>
+                el.classList.remove('is-invalid')
+            );
+
+            // helpers
+            const markInvalid = (el) => {
+                el.classList.add('is-invalid');
+                valid = false;
+            };
+
+            // Amount
+            const amount = document.getElementById('amount');
+            if (!amount.value || Number(amount.value) <= 0) {
+                markInvalid(amount);
+            }
+
+            // Donor Name
+            const donorName = document.getElementById('donorName');
+            if (!donorName.value.trim()) {
+                markInvalid(donorName);
+            }
+
+            // Account (hidden input set by buttons)
+            const account = document.getElementById('account');
+            if (!account.value.trim()) {
+                // visually highlight account label box
+                document.getElementById('lbl-account')
+                    .classList.add('text-danger');
+                valid = false;
+            } else {
+                document.getElementById('lbl-account')
+                    .classList.remove('text-danger');
+            }
+
+            // Area
+            const area = document.getElementById('area');
+            if (!area.value.trim()) {
+                markInvalid(area);
+            }
+
+            // Sub Area
+            const subArea = document.getElementById('subArea');
+            if (!subArea.value.trim()) {
+                markInvalid(subArea);
+            }
+
+            if (!valid) {
+                alert('Please fill all mandatory fields.');
+            }
+
+            return valid;
+        }
+
 
 /* Reports */
 async function refreshReport(){
@@ -548,88 +589,106 @@ $('resetReport').addEventListener('click', async ()=>{ $('reportFrom').value='';
 
             if (!rows || !rows.length) return alert("No records to export");
 
-            // -----------------------------
-            // GROUP BY SUB AREA
-            // -----------------------------
-            const groups = {};
+            // -----------------------------------------
+            // GROUP BY AREA → SUBAREA
+            // -----------------------------------------
+            const areaGroups = {};
             rows.forEach(r => {
+                const area = r.area || "Unknown Area";
                 const sub = r.subArea || "Unknown Sub Area";
-                if (!groups[sub]) groups[sub] = [];
-                groups[sub].push(r);
+
+                if (!areaGroups[area]) areaGroups[area] = {};
+                if (!areaGroups[area][sub]) areaGroups[area][sub] = [];
+
+                areaGroups[area][sub].push(r);
             });
 
-            // -----------------------------
+            // -----------------------------------------
             // PREPARE SHEET (AOA)
-            // -----------------------------
+            // -----------------------------------------
             const sheet = [];
-
-            // ======== TOP AREA HEADER ==========
-            const areaName = rows[0].area || "Area";
-            sheet.push([`${areaName.toUpperCase()} REPORT`]);
-            sheet.push([]);
-
-            // ======== COLUMN HEADERS ===========
             const HEADERS = ["Amount", "Name", "Account"];
 
-            // ======== LOOP SUB AREAS ===========
-            Object.keys(groups).forEach(sub => {
+            // Keep track of styled cell positions later
+            let styledCells = [];
 
-                // Sub Area Header
-                sheet.push([`SUB AREA: ${sub.toUpperCase()}`]);
-                sheet.push([]);
+            // Loop Areas
+            Object.keys(areaGroups).forEach(area => {
 
-                // Table Header
-                sheet.push([...HEADERS]);
+                // AREA HEADER (big & bold)
+                const areaRowIndex = sheet.length;
+                sheet.push([`${area.toUpperCase()} REPORT`]);
+                styledCells.push({ r: areaRowIndex, c: 0, type: "areaHeader" });
 
-                // Data rows
-                groups[sub].forEach(r => {
-                    sheet.push([
-                        r.amount || "",
-                        r.name || "",
-                        r.account || ""
-                    ]);
+                sheet.push([]); // empty row
+
+                // Loop Sub Areas
+                Object.keys(areaGroups[area]).forEach(sub => {
+
+                    // SUBAREA HEADER (bold)
+                    const subRowIndex = sheet.length;
+                    sheet.push([`SUB AREA: ${sub.toUpperCase()}`]);
+                    styledCells.push({ r: subRowIndex, c: 0, type: "subHeader" });
+
+                    sheet.push([]);
+
+                    // TABLE HEADERS (colored row)
+                    const headerRowIndex = sheet.length;
+                    sheet.push([...HEADERS]);
+                    HEADERS.forEach((h, i) =>
+                        styledCells.push({ r: headerRowIndex, c: i, type: "tableHeader" })
+                    );
+
+                    // DATA ROWS
+                    areaGroups[area][sub].forEach(r => {
+                        sheet.push([
+                            r.amount || "",
+                            r.name || "",
+                            r.account || ""
+                        ]);
+                    });
+
+                    sheet.push([]); // space after subarea
                 });
 
-                // space after each group
-                sheet.push([]);
+                sheet.push([]); // space after area
             });
 
-            // -----------------------------
-            // CONVERT TO XLSX SHEET
-            // -----------------------------
+
+            // Convert AOA → Worksheet
             const ws = XLSX.utils.aoa_to_sheet(sheet);
 
             // -----------------------------
-            // COLUMN WIDTHS (A5 friendly)
+            // COLUMN WIDTHS
             // -----------------------------
             ws["!cols"] = [
-                { wch: 10 }, // Amount
-                { wch: 22 }, // Name
-                { wch: 14 }  // Account
+                { wch: 12 }, // Amount
+                { wch: 25 }, // Name
+                { wch: 15 }  // Account
             ];
 
             // -----------------------------
-            // FORMATTING: Borders & Alignment
+            // BORDER + ALIGNMENT FOR ALL CELLS
             // -----------------------------
-            const range = XLSX.utils.decode_range(ws['!ref']);
+            const range = XLSX.utils.decode_range(ws["!ref"]);
 
             for (let R = range.s.r; R <= range.e.r; ++R) {
                 for (let C = range.s.c; C <= range.e.c; ++C) {
 
-                    const addr = XLSX.utils.encode_cell({ r: R, c: C });
-                    const cell = ws[addr];
+                    const cellRef = XLSX.utils.encode_cell({ r: R, c: C });
+                    const cell = ws[cellRef];
                     if (!cell) continue;
 
-                    cell.s = cell.s || {};
+                    if (!cell.s) cell.s = {};
 
-                    // Alignment
+                    // universal alignment
                     cell.s.alignment = {
                         vertical: "center",
-                        horizontal: (C === 0) ? "center" : "left",
+                        horizontal: C === 0 ? "center" : "left",
                         wrapText: true
                     };
 
-                    // Borders
+                    // universal borders
                     cell.s.border = {
                         top: { style: "thin", color: { rgb: "000000" } },
                         left: { style: "thin", color: { rgb: "000000" } },
@@ -638,6 +697,30 @@ $('resetReport').addEventListener('click', async ()=>{ $('reportFrom').value='';
                     };
                 }
             }
+
+            // ---------------------------------------
+            // APPLY SPECIAL STYLING FOR HEADERS
+            // ---------------------------------------
+            styledCells.forEach(c => {
+                const cellRef = XLSX.utils.encode_cell({ r: c.r, c: c.c });
+                const cell = ws[cellRef];
+                if (!cell) return;
+
+                cell.s = cell.s || {};
+
+                if (c.type === "areaHeader") {
+                    cell.s.font = { bold: true, sz: 16, color: { rgb: "1F4E78" } };
+                }
+                if (c.type === "subHeader") {
+                    cell.s.font = { bold: true, sz: 13, color: { rgb: "7030A0" } };
+                }
+                if (c.type === "tableHeader") {
+                    cell.s.font = { bold: true, color: { rgb: "FFFFFF" } };
+                    cell.s.fill = { fgColor: { rgb: "4472C4" } }; // blue
+                    cell.s.alignment = { horizontal: "center", vertical: "center" };
+                }
+            });
+
 
             // -----------------------------
             // EXPORT FILE
@@ -656,26 +739,39 @@ $('exportFiltered').addEventListener('click', async ()=>{ const all = await getA
 async function updateSuggestions(){
   const all = await getAllRecords();
   const donors = Array.from(new Set(all.map(r=> r.name).filter(Boolean))).slice(-200);
-  const areas = Array.from(new Set(all.map(r=> r.area).filter(Boolean))).slice(-200);
+    const areas = Array.from(new Set(all.map(r => r.area).filter(Boolean))).slice(-200);
+    const subAreas = Array.from(new Set(all.map(r => r.subArea).filter(Boolean))).slice(-200);
   const donorList = $('donorSuggestions'); donorList.innerHTML = '';
   donors.forEach(d=>{ const o=document.createElement('option'); o.value=d; donorList.appendChild(o); });
   const areaList = $('areaSuggestions'); areaList.innerHTML = '';
-  areas.forEach(a=>{ const o=document.createElement('option'); o.value=a; areaList.appendChild(o); });
+    areas.forEach(a => { const o = document.createElement('option'); o.value = a; areaList.appendChild(o); });
+    const subAreaList = $('subAreaSuggestions'); subAreaList.innerHTML = '';
+    subAreas.forEach(a => { const o = document.createElement('option'); o.value = a; subAreaList.appendChild(o); });
 }
 
-/* Account buttons */
-document.querySelectorAll('.acc-btn').forEach(btn=> btn.addEventListener('click', e=>{
-  const v = e.currentTarget.dataset.val;
-    $('account').value = v;    
-    document.getElementById('account').value = v;   
+        /* Account buttons */
+        document.querySelectorAll('.acc-btn').forEach(btn => {
+            btn.addEventListener('click', e => {
 
-    // Remove active class from all buttons
-    document.querySelectorAll('.acc-btn')
-        .forEach(b => b.classList.remove('active-acc'));
+                const value = e.currentTarget.dataset.val;
 
-    // Add active class to clicked button
-    e.currentTarget.classList.add('active-acc');
-}));
+                // Set hidden account value (ONCE)
+                const accountInput = document.getElementById('account');
+                accountInput.value = value;
+
+                // Remove active state from all buttons
+                document.querySelectorAll('.acc-btn')
+                    .forEach(b => b.classList.remove('active-acc'));
+
+                // Activate clicked button
+                e.currentTarget.classList.add('active-acc');
+
+                // Remove validation error (if any)
+                document.getElementById('lbl-account')
+                    .classList.remove('text-danger');
+            });
+        });
+
 
 /* Voice assist (simple) */
 let recognition = null;
@@ -719,7 +815,14 @@ function parseSpokenNumber(text){
   return null;
 }
         function clearForm() {
-            document.querySelector('#donationForm').reset();
+            //document.querySelector('#donationForm').reset();
+            $('donorName').value = '';
+            $('amount').value = '';
+            $('contact').value = '';
+            $('notes').value = '';
+
+            // Reset date to today (optional)
+            $('donationDate').value = formatDate(new Date());
             editingId = null;
             $('saveBtn').textContent = 'Save';
             $('cancelEditBtn').style.display = 'none';
@@ -727,6 +830,8 @@ function parseSpokenNumber(text){
             // Reset serial number indicator (next receipt no)
             peekSerial();
         }
+
+        
 
 
 /* Init */
@@ -738,8 +843,38 @@ function parseSpokenNumber(text){
   await peekSerial();
   await refreshTable();
   await refreshReport();
-  await updateSuggestions();
-})();
+    await updateSuggestions();
+    attachLiveValidation()
+        })();
+
+        function attachLiveValidation() {
+
+            const textInputs = ['amount', 'donorName', 'area', 'subArea'];
+
+            textInputs.forEach(id => {
+                const el = document.getElementById(id);
+
+                el.addEventListener('input', () => {
+                    if (el.value && (id !== 'amount' || Number(el.value) > 0)) {
+                        el.classList.remove('is-invalid');
+                    }
+                });
+            });
+
+            // Account handled via buttons (label highlight)
+            const accountInput = document.getElementById('account');
+            const accountLabel = document.getElementById('lbl-account');
+
+            // safety (in case value set programmatically)
+            const observer = new MutationObserver(() => {
+                if (accountInput.value) {
+                    accountLabel.classList.remove('text-danger');
+                }
+            });
+
+            observer.observe(accountInput, { attributes: true, attributeFilter: ['value'] });
+        }
+
 
     </script>
 </body>
